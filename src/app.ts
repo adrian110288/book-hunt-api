@@ -2,7 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
 import api from './api'
-import errorHandler from './util/api-error-handler'
+import errorHandler from './util/errors/api-error-handler'
 
 const app = express()
 

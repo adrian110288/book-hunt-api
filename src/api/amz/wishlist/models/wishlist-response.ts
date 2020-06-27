@@ -1,5 +1,7 @@
 import WishlistBook from "./wishlist-book";
 
-export default interface WishlistResponse {
+interface WishlistResponse {
     items: WishlistBook[]
 }
+
+export default  WishlistResponse

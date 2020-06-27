@@ -1,7 +1,8 @@
 interface ApiErrorResponse {
     name: string
     status: number
-    code?: string
+    code: string
     message: string
-    stack: string
 }
+
+export default ApiErrorResponse
