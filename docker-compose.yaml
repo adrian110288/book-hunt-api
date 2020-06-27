@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  api:
+    image: book-hunt-api:dev
+    container_name: book-hunt-api
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    restart: always

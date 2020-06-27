@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+npm-debug.log
+README.md
+Dockerfile*
+docker-compose*
+data
+mongo-data
+postgres-data
+.vscode
+.env
