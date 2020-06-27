@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import WishlistController from './wishlist/controller/wishlist-controller-impl'
-import WishlistControllerImpl from './wishlist/controller/wishlist-controller-impl'
+import WishlistController from './wishlist/interfaces/wishlist-controller'
+import WishlistControllerImpl from './wishlist/controller'
 import wrap from '../../util/wrap'
 import WishlistService from './wishlist/interfaces/wishlist-service'
 import WishlistServiceImpl from './wishlist/wishlist-service-impl'
