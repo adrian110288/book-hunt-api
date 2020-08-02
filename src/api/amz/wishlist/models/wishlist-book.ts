@@ -1,9 +1,10 @@
 interface WishlistBook {
     id: string,
     title: string,
-    author: string,
+    author: string[],
+    currency: string,
     price: number,
-    cover: string
+    coverUrl: string
 }
 
 export default WishlistBook

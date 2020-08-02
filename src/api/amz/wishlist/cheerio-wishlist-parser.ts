@@ -10,24 +10,52 @@ class CheerioWishlistParser implements WishlistParser {
 
         this.$ = cheerio.load(document)
 
-        const itemDetails = this.$('#g-items').find('.g-item-details')
+        const items = this.$('#g-items').find('li')
 
         const books: WishlistBook[] = []
-        itemDetails.each((i, el) => books.push(this.extractBoookFromElement(el)))
+        items.each((i, el) =>
+            books.push(this.extractBookFromElement(el)))
 
         return books
     }
 
-    extractBoookFromElement(el: CheerioElement): WishlistBook {
+    extractBookFromElement(el: CheerioElement): WishlistBook {
 
-        const bookTitle = this.$(el).find('h3 > a').attr('title')
+        const id = this.$(el)
+            .attr('data-itemid')
+
+        const title = this.$(el)
+            .find('h3').text()
+
+        const author = this.$(el)
+            .find(`#item-byline-${id}`)
+            .text()
+            .split(',')
+            .map((value)=>value.replace(RegExp('by '), ""))
+            .map((value)=>value.replace(RegExp('\\(.*\\)'), ""))
+            .map((value)=> value.trim())
+
+        const currency = this.$(el)
+            .find(`#itemPrice_${id}`)
+            .find('span')
+            .first()
+            .text()
+            .replace(RegExp('([0-9]+[.,]*)+'), "")
+
+        const price = Number(this.$(el)
+            .attr('data-price'))
+
+        const coverUrl = this.$(el)
+            .find(`#itemImage_${id} > a > img`)
+            .attr('src')
 
         return {
-            id: "string",
-            title: bookTitle,
-            author: "string",
-            price: 4.12,
-            cover: "string"
+            id,
+            title,
+            author,
+            currency,
+            price,
+            coverUrl
         }
 
     }
