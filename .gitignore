@@ -3,4 +3,5 @@ node_modules/
 *.iml
 .env
 dist
+coverage
 TODO.txt
