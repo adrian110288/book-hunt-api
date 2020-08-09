@@ -1,5 +1,6 @@
 GET http://localhost:3000/api/amz/wishlist/2QK4PU72HTN4F/books
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1OTY5ODI0ODcsImV4cCI6MTYyODUxODQ4NywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsInVzZXJJZCI6IjEifQ.YwBmOV62ZAXnTBBQlJsTkkhs-Chxebe7ZRe7kaTaf5k
 
 ###
 #{
