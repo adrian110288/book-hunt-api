@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/amz/wishlist?id=2QK4PU72HTN4F
+GET http://localhost:3000/api/amz/wishlist/2QK4PU72HTN4F
 Accept: application/json
 
 ###

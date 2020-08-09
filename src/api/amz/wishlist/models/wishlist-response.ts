@@ -1,7 +1,8 @@
 import WishlistBook from "./wishlist-book";
 
 interface WishlistResponse {
-    items: WishlistBook[]
+    books: WishlistBook[]
+    count: number
 }
 
 export default  WishlistResponse

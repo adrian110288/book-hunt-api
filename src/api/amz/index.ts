@@ -1,17 +1,13 @@
-import { Router } from 'express'
-import WishlistController from './wishlist/interfaces/wishlist-controller'
-import WishlistControllerImpl from './wishlist/controller'
+import {Router} from 'express'
 import wrap from '../../util/wrap'
-import WishlistService from './wishlist/interfaces/wishlist-service'
-import WishlistServiceImpl from './wishlist/wishlist-service-impl'
-import WishlistParser from './wishlist/interfaces/wishlist-parser'
-import CheerioWishlistParser from './wishlist/cheerio-wishlist-parser'
+import getWishlist from "./wishlist/get-wishlist";
 
-const wishlistParser: WishlistParser = new CheerioWishlistParser()
-const wishlistService: WishlistService = new WishlistServiceImpl(wishlistParser)
-const wishlistController: WishlistController = new WishlistControllerImpl(wishlistService)
+const amzRouter = Router({caseSensitive: true})
 
-const router  = Router()
-router.get('/wishlist', wrap(wishlistController.getWishlist))
+amzRouter.post('/wishlist/register',)
 
-export default router
+amzRouter.delete('/wishlist/unregister',)
+
+amzRouter.get('/wishlist/:id', wrap(getWishlist))
+
+export default amzRouter

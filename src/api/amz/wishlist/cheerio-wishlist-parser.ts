@@ -1,65 +1,58 @@
-import WishlistParser from "./interfaces/wishlist-parser";
 import WishlistBook from "./models/wishlist-book";
 import cheerio from 'cheerio'
 
-class CheerioWishlistParser implements WishlistParser {
+async function extractBookFromElement(el: CheerioElement, $: CheerioStatic): Promise<WishlistBook> {
 
-    $: CheerioStatic
+    const id = $(el)
+        .attr('data-itemid')
 
-    async extractBooks(document: string): Promise<WishlistBook[]> {
+    const title = $(el)
+        .find('h3').text()
 
-        this.$ = cheerio.load(document)
+    const author = $(el)
+        .find(`#item-byline-${id}`)
+        .text()
+        .split(',')
+        .map((value: string) => value.replace(RegExp('by '), ""))
+        .map((value: string) => value.replace(RegExp('\\(.*\\)'), ""))
+        .map((value: string) => value.trim())
 
-        const items = this.$('#g-items').find('li')
+    const currency = $(el)
+        .find(`#itemPrice_${id}`)
+        .find('span')
+        .first()
+        .text()
+        .replace(RegExp('([0-9]+[.,]*)+'), "")
 
-        const books: WishlistBook[] = []
-        items.each((i, el) =>
-            books.push(this.extractBookFromElement(el)))
+    const price = Number($(el)
+        .attr('data-price'))
 
-        return books
-    }
+    const coverUrl = $(el)
+        .find(`#itemImage_${id} > a > img`)
+        .attr('src')
 
-    extractBookFromElement(el: CheerioElement): WishlistBook {
-
-        const id = this.$(el)
-            .attr('data-itemid')
-
-        const title = this.$(el)
-            .find('h3').text()
-
-        const author = this.$(el)
-            .find(`#item-byline-${id}`)
-            .text()
-            .split(',')
-            .map((value)=>value.replace(RegExp('by '), ""))
-            .map((value)=>value.replace(RegExp('\\(.*\\)'), ""))
-            .map((value)=> value.trim())
-
-        const currency = this.$(el)
-            .find(`#itemPrice_${id}`)
-            .find('span')
-            .first()
-            .text()
-            .replace(RegExp('([0-9]+[.,]*)+'), "")
-
-        const price = Number(this.$(el)
-            .attr('data-price'))
-
-        const coverUrl = this.$(el)
-            .find(`#itemImage_${id} > a > img`)
-            .attr('src')
-
-        return {
-            id,
-            title,
-            author,
-            currency,
-            price,
-            coverUrl
-        }
-
+    return {
+        id,
+        title,
+        author,
+        currency,
+        price,
+        coverUrl
     }
 
 }
 
-export default CheerioWishlistParser
+async function extractBooks(document: string): Promise<WishlistBook[]> {
+
+    const $ = cheerio.load(document)
+
+    const items = $('#g-items').find('li')
+
+    const books: WishlistBook[] = []
+    items.each(async (i: number, el: CheerioElement) =>
+        books.push(await extractBookFromElement(el, $)))
+
+    return books
+}
+
+export default extractBooks
