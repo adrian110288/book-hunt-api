@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from 'express'
 import log from '../log'
 import ApiErrorResponse from './api-error-response'
 
-async function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+export async function errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
 
     log(err.stack)
 
@@ -37,5 +37,3 @@ async function errorHandler(err: Error, req: Request, res: Response, next: NextF
 
     res.status(body.status).json(body)
 }
-
-export default errorHandler

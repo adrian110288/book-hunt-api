@@ -1,6 +1,6 @@
 import {Router} from 'express'
 
-const authRouter = Router({caseSensitive: true})
+const authRouter: Router = Router({caseSensitive: true})
 
 // TODO register route
 authRouter.post('/register')
@@ -11,4 +11,4 @@ authRouter.post('/login')
 // TODO logout route
 authRouter.post('/logout')
 
-export default authRouter
+export const AuthRouter: Router = authRouter
