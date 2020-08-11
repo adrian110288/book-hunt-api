@@ -22,9 +22,9 @@ services:
     image: postgres:11-alpine
     container_name: book-hunt-postgres
     environment:
-      - POSTGRES_USER=book-hunt_admin
-      - POSTGRES_PASSWORD=book-hunt_pass
-      - POSTGRES_DB=book-hunt
+      - POSTGRES_USER=bookhuntadmin
+      - POSTGRES_PASSWORD=bookhuntpass
+      - POSTGRES_DB=bookhunt
     expose:
       - 5432
     ports:
