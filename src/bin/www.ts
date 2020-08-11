@@ -2,15 +2,14 @@ import dotenv from "dotenv"
 import app from '../app'
 import http from 'http'
 import {errorLog, log} from "../util/log"
+import {getDatabase} from "../db";
+import {EnvironmentType} from "../config/environments";
 
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config()
 }
 
-(async () => {
-
-    // await sequelize.addModels(MODELS);
-    // await sequelize.sync();
+getDatabase(process.env.NODE_ENV as EnvironmentType).connect().then(() => {
 
     /**
      * Get port from environment and store in Express.
@@ -98,4 +97,4 @@ if (process.env.NODE_ENV !== 'production') {
             : 'port ' + addr.port
         log('Listening on ' + bind)
     }
-})();
+}).catch((err) => errorLog("Database could not be started!" + err));

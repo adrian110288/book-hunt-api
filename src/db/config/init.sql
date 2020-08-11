@@ -1,2 +1,2 @@
-CREATE DATABASE IF NOT EXISTS bookhunt;
+CREATE DATABASE bookhunt;
 USE bookhunt;
