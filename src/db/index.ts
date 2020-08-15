@@ -1,6 +1,7 @@
 import {Sequelize} from "sequelize";
 import {EnvironmentType, getDatabaseConfig} from "../config/environments";
 import log from "../util/log";
+import {MODELS} from "./models/model.index";
 
 class Database {
 
@@ -13,7 +14,9 @@ class Database {
     }
 
     public async connect() {
-        return this._sequelize.authenticate();
+        return this._sequelize.authenticate().then(value =>
+            MODELS.forEach(model => model.prepare(this._sequelize))
+        );
     }
 }
 
